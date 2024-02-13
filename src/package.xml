@@ -1,0 +1,126 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package name="helloworldUncertaintyPy" displayName="Example demonstrating how to use iterations with python" version="1.0.0" url="https://apexrms.github.io/helloworldEnhanced/">	
+	<transformers>
+
+		<!--Primary Transformer-->
+		<transformer
+			name="Primary"
+			isPrimary="True"
+			programName="python"
+			programArguments="model.py">
+
+			<!--Chart Transformer-->
+			<include>
+				<transformer name="corestime_Runtime"/>
+			</include>
+
+			<datafeeds>
+
+				<!--Run Control-->
+				<datafeed name="RunControl" displayName="Run Control" dataScope="Scenario">
+					<datasheets>
+						<datasheet name="RunControl" displayName="Run Control" isSingleRow="True">
+							<columns>
+								<column name="RunControlID" dataType="Integer" isPrimary="True"/>
+								<column name="ScenarioID" dataType="Integer"/>
+								<column
+									name="MinimumIteration"
+									displayName="Minimum Iteration"
+									dataType="Integer"
+									defaultValue="1"
+									validationType="WholeNumber"
+									validationCondition="GreaterEqual"
+									formula1="1"
+									isVisible="False"/>
+								<column
+									name="MaximumIteration"
+									displayName="Number of Iterations"
+									dataType="Integer"
+									defaultValue="5"
+									validationType="WholeNumber"
+									validationCondition="GreaterEqual"
+									formula1="1"/>
+								<column
+									name="MinimumTimestep"
+									displayName="Minimum Timestep"
+									dataType="Integer"
+									defaultValue="0"
+									validationType="WholeNumber"
+									validationCondition="GreaterEqual"
+									formula1="0"/>
+								<column
+									name="MaximumTimestep"
+									displayName="Maximum Timestep"
+									dataType="Integer"
+									defaultValue="10"
+									validationType="WholeNumber"
+									validationCondition="GreaterEqual"
+									formula1="0"/>
+							</columns>
+						</datasheet>
+					</datasheets>
+				</datafeed>
+
+				<!--Model Inputs-->
+				<datafeed name="InputDatafeed" displayName="Inputs" dataScope="Scenario">
+					<datasheets>
+						<datasheet name="InputDatasheet" isSingleRow="True">
+							<columns>
+								<column name="InputDatasheetID" dataType="Integer" isPrimary="True"/>
+								<column name="ScenarioID" dataType="Integer"/>
+								<column name="mMean" dataType="Double" displayName="Slope Distribution Mean"/>
+								<column 
+									name="mSD" 
+									dataType="Double" 
+									displayName="Slope Distribution Standard Deviation"/>
+								<column name="b" dataType="Integer" displayName="Value for b"/>
+							</columns>
+						</datasheet>
+					</datasheets>
+				</datafeed>
+
+				<!--Model Output-->
+				<datafeed name="OutputDatafeed" displayName="Outputs" dataScope="Scenario">
+					<datasheets>
+						<datasheet name="OutputDatasheet">
+							<columns>
+								<column name="OutputDatasheetID" dataType="Integer" isPrimary="True"/>
+								<column name="ScenarioID" dataType="Integer"/>
+								<column name="Iteration" dataType="Integer"/>
+								<column name="Timestep" dataType="Integer" displayName="Timestep"/>
+								<column name="y" dataType="Double" displayName="Value for y"/>
+							</columns>
+						</datasheet>
+					</datasheets>
+				</datafeed>
+
+			</datafeeds>
+		</transformer>
+	</transformers>
+	<layouts>
+
+		<!--Results Transformer Layout-->
+		<layout name="coreforms_ResultTransformers">
+			<item name="corestime_ChartTransformer"/>
+		</layout>
+
+		<!--Library Datafeeds Layout-->
+		<layout name="coreforms_LibraryDatafeeds">
+			<item name="core_Pyconfig"/>
+			<!--item name="core_Rconfig"/-->
+		</layout>
+
+		<!--Scenario Datafeeds Layout-->
+		<layout name="coreforms_ScenarioDatafeeds">
+			<item name="RunControl"/>
+			<item name="InputDatafeed"/>
+			<item name="OutputDatafeed"/>
+		</layout>
+
+		<!--Charts Layout-->
+		<layout name="corestimeforms_Charts" configurationSheet="RunControl">
+			<item name="y" displayName="y" dataSheet="OutputDatasheet" column="y"/>
+		</layout>
+
+	</layouts>
+</package>
