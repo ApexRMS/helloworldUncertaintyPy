@@ -1,3 +1,5 @@
+from osgeo import gdal
+
 # Load SyncroSim python package
 import pysyncrosim as ps
 
@@ -9,14 +11,14 @@ import pandas as pd
 myScenario = ps.Scenario()
 
 # Load Run Control Datasheet to set timesteps
-run_settings = myScenario.datasheets(name="RunControl")
+run_settings = myScenario.datasheets(name="helloworldUncertaintyPy_RunControl")
 
 # Set timesteps
 timesteps = np.array(range(run_settings.MinimumTimestep.item(),
                            run_settings.MaximumTimestep.item() + 1))
 
 # Load Scenario's input Datasheet from SyncroSim Library into DataFrame
-my_input_dataframe = myScenario.datasheets(name="InputDatasheet")
+my_input_dataframe = myScenario.datasheets(name="helloworldUncertaintyPy_InputDatasheet")
 
 # Extract model inputs from Input DataFrame
 m_mean = my_input_dataframe.mMean.item()
@@ -24,7 +26,7 @@ m_sd = my_input_dataframe.mSD.item()
 b = my_input_dataframe.b.item()
 
 # Set up empty pandas DataFrame to accept output values
-my_output_dataframe = myScenario.datasheets(name="OutputDatasheet")
+my_output_dataframe = myScenario.datasheets(name="helloworldUncertaintyPy_OutputDatasheet")
 
 # For loop through iterations
 for i in range(1, run_settings.MaximumIteration.item() + 1):
@@ -41,8 +43,8 @@ for i in range(1, run_settings.MaximumIteration.item() + 1):
                                     "y": y})
 
     # Append temporary data frame to output data frame
-    my_output_dataframe = my_output_dataframe.append(temp_data_frame)
+    my_output_dataframe = pd.concat([my_output_dataframe, temp_data_frame])
 
 # Save the output DataFrame to the Scenario output Datasheet
-myScenario.save_datasheet(name="OutputDatasheet",
+myScenario.save_datasheet(name="helloworldUncertaintyPy_OutputDatasheet",
                           data=my_output_dataframe)
