@@ -20,7 +20,7 @@
 
 	<!--Transformers-->
 
-	<transformer name="Main" displayName="Hello World Uncertainty" programArguments="model.py" condaEnv="helloworldPy.yml" condaEnvVersion="1">
+	<transformer name="Main" displayName="Hello World Uncertainty (Python)" programArguments="model.py" condaEnv="helloworldPy.yml" condaEnvVersion="1">
 		<dataSheet name="RunControl" type="Input"/>
 		<dataSheet name="InputDatasheet" type="Input"/>
 		<dataSheet name="OutputDatasheet" type="Output"/>
