@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<package name="helloworldUncertaintyPy" displayName="Hello World Uncertainty (Python)" description="Example demonstrating how to use iterations with a Python model" version="2.0.0" url="https://apexrms.github.io/helloworldEnhanced/">
+<package name="helloworldUncertaintyPy" displayName="Hello World Uncertainty (Python)" description="Example demonstrating how to use iterations with a Python model" version="2.0.1" url="https://apexrms.github.io/helloworldEnhanced/">
 
 	<!--Scenario Datasheets-->
 
@@ -20,7 +20,7 @@
 
 	<!--Transformers-->
 
-	<transformer name="Main" displayName="Hello World Uncertainty (Python)" programArguments="model.py" condaEnv="helloworldPy.yml" condaEnvVersion="1">
+	<transformer name="Main" displayName="Hello World Uncertainty (Python)" programArguments="model.py" condaEnv="helloworldPy.yml" condaEnvVersion="2">
 		<dataSheet name="RunControl" type="Input"/>
 		<dataSheet name="InputDatasheet" type="Input"/>
 		<dataSheet name="OutputDatasheet" type="Output"/>
